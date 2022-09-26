@@ -2,6 +2,7 @@
 
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::group([
-    'middleware'=>['auth','isAdmin'],'prefix'=>'admin'
+
+Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'
 ],function(){
-    Route::get('deneme',function(){
-        return 'middleware testi';
-    });
+    Route::resource('quizzes',QuizController::class);
 });
