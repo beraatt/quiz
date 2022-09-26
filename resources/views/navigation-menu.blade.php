@@ -36,6 +36,7 @@
                             </x-slot>
 
                             <x-slot name="content">
+                                @if(auth()->user()->type=='admin')
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
@@ -67,7 +68,8 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
-                @endif
+                @endif @endif
+
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
