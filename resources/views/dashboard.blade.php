@@ -1,4 +1,4 @@
 <x-app-layout>
     <x-slot name="header">Anasayfa</x-slot>
-    <div class="alert alert-danger">Bootsrapt alert mesajı</div>
+    <div class="text-xl font-medium text-brown">Mesaj</div>
 </x-app-layout>
