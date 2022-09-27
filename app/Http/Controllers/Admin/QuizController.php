@@ -26,7 +26,8 @@ class QuizController extends Controller
      */
     public function create()
     {
-        
+        $quizzes = Quiz::paginate(5);
+        return view('admin.quiz.create',compact('quizzes'));
     }
 
     /**
@@ -37,7 +38,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
