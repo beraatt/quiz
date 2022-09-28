@@ -7,12 +7,9 @@ window.Alpine = Alpine;
 Alpine.start();
 
 
-require('jquery');
-
-import $ from 'jquery'
-window.jquery=$;
+import jQuery from 'jquery';
+import $ from 'jquery';
+window.jQuery=$;
 window.$=$;
 
 
-import jQuery from 'jquery';
-window.$ = jQuery;

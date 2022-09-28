@@ -16,6 +16,7 @@
         <!-- Styles -->
         @livewireStyles
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -37,7 +38,9 @@
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {{ $slot }}
-                   
+                    @isset($js )
+                        {{ $js }}
+                    @endisset
                         
                     </div>
                 </div>
@@ -46,9 +49,7 @@
         </div>
 
         @stack('modals')
-        @isset($js )
-        {{ $js }}
-        @endisset
+       
         @livewireScripts
     </body>
 </html>

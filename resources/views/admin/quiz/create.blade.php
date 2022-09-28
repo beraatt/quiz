@@ -11,11 +11,11 @@
                                                         <label>Quiz Açıklama</label>
                                                         <textarea name="description" class="form-control" rows="4"></textarea>
                                                 </div>
-                                                <div class="form-group mt-2" >
-                                                        <input id="isfinish" type="checkbox">
-                                                        <label>Bitiş tarihi olacak mı</label>
+                                                <div class="form-group">
+                                                        <input type="checkbox"  id="isFin">
+                                                        <label>Bitiş tarihi olacak mi?</label>
                                                 </div>
-                                                <div style="display: none" class="form-group mt-2" >
+                                                <div id="finishinput" style="display: none" class="form-group mt-2" >
                                                         <label>Bitiş Tarihi</label>
                                                         <input type="datetime-local" name="finished_at" class="form-control">
                                                 </div>
@@ -29,8 +29,12 @@
                 </div>  
                 <x-slot name="js">
                         <script>
-                                $(#isfinish).change(function(){
-                                        alert('çalıştı')
+                                $('#isFin').change(function(){
+                                        if($('#isFin').is(':checked')){
+                                                $('#finishinput').show();
+                                        }else{
+                                                $('#finishinput').hide();
+                                        }
                                 })
                         </script>
                 </x-slot>            
