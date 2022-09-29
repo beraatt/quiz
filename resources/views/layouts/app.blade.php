@@ -47,6 +47,12 @@
                         @endforeach
                     </div>
                 @endif
+                @if (session('success'))
+                    <div class="alert alert-success text-center" >
+                        <i class="fa fa-check"></i>
+                        {{ session('success') }}
+                    </div>
+                @endif
                 {{ $slot }}
             </div>
         </div>

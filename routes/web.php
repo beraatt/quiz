@@ -3,6 +3,7 @@
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
+use Psy\Readline\Hoa\Console;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'
-],function(){
+Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],
+function(){
     Route::resource('quizzes',QuizController::class);
 });
