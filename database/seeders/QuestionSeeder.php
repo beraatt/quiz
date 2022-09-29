@@ -1,23 +1,19 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Quiz;
+use App\Models\Question;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class QuizSeeder extends Seeder
+class QuestionSeeder extends Seeder
 {
-    protected $model = Quiz::class;
     /**
      * Run the database seeds.
      *
-     * 
      * @return void
      */
     public function run()
     {
-        \App\Models\Quiz::factory(10)->create();
-       
+        \App\Models\Question::factory(100)->create();
     }
 }
