@@ -21,14 +21,19 @@
                 @foreach ($quiz->questions as $question)
                 <tr>
                     <td>{{ $question->question }} </td>
-                    <td>{{ $question->image }}</td>
+                    <td>
+                        @if ($question->image)
+                            <a href="{{asset($question->image)}}" target="_blanck" class="btn btn-sm btn-light">Görüntüle</a>
+                        @endif
+
+                    </td>
                     <td>{{ $question->answer1 }}</td>
                     <td>{{ $question->answer2 }}</td>
                     <td>{{ $question->answer3 }}</td>
                     <td>{{ $question->answer4 }}</td>
                     <td class="text-success" style="text-align: center">{{ Str::substr($question->correct_answer, -1, 1) }}. Cevap</td>
                     <td>
-                        <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
+                        <form action="{{ route('questions.destroy', [$quiz->id,$question->id]) }}" method="POST"> @method('DELETE')
                             @csrf <button type="submit" class="btn btn-sm btn-danger"><i
                                     class="fa fa-times"></i></button>
 

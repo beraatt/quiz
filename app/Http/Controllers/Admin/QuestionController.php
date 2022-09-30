@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 class QuestionController extends Controller
@@ -85,7 +86,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $quiz_id, $question_id)
+    public function update(QuestionUpdateRequest $request, $quiz_id, $question_id)
     {
         if($request->hasFile(('image'))){
             $fileName = Str::slug($request->question).'.'.$request->image->extension();
@@ -105,8 +106,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($quiz_id,$question_id)
     {
-        //
+       Quiz::find($quiz_id)->questions()->whereId($question_id)->delete();
+       return redirect()->route('questions.index',$quiz_id)->withSuccess('Soru başarıyla silindi');
     }
 }

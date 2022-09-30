@@ -2,7 +2,8 @@
     <x-slot name="header">{{ $question->question }} düzenle</x-slot>
     <div class="card">
         <div class="card-body">
-            <form method="POST" action="{{ route('questions.update', [$question->quiz_id,$question->id])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('questions.update', [$question->quiz_id, $question->id]) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -10,9 +11,11 @@
                     <textarea name="question" class="form-control" rows="4">{{ $question->question }}</textarea>
                 </div>
                 <div class="form-group">
-                    <a href="{{ asset($question->image) }}" target="_blank">
-                        <img src="{{ asset($question->image) }} " style="width: 100px" class="img img-responsive">
-                    </a>
+                    @if ($question->image)
+                        <a href="{{ asset($question->image) }}" target="_blank">
+                            <img src="{{ asset($question->image) }} " style="width: 100px" class="img img-responsive">
+                        </a>
+                    @endif
                     <label>Fotoğraf</label>
                     <input type="file" name="image" class="form-control">
                 </div>
