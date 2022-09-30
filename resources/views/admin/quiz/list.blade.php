@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col">Quiz</th>
+                    <th scope="col">Soru Sayısı</th>
                     <th scope="col">Durum</th>
                     <th scope="col">Bitiş Tarihi</th>
                     <th scope="col">İşlemler</th>
@@ -19,8 +20,32 @@
                 @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{ $quiz->title }} </td>
-                        <td>{{ $quiz->status }}</td>
-                        <td>{{ $quiz->finished_at }}</td>
+                        <td> {{ $quiz->questions_count }} </td>
+                        <td class="text-center">
+                            @switch($quiz->status)
+                                @case('publish')
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Publish</span>
+                                @break
+
+                                @case('passive')
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Passive</span>
+                                @break
+
+                                @case('draft')
+                                    <span
+                                        class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Draft</span>
+                                @break
+                            @endswitch
+                        </td>
+
+                        <td>
+                            <span title="{{ $quiz->finished_at }}">
+                                {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-' }}
+                            </span>
+                        </td>
+
                         <td>
                             <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
                                 @csrf <button type="submit" class="btn btn-sm btn-danger"><i

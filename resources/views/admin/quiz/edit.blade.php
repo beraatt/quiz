@@ -8,8 +8,18 @@
                         <input type="text" name="title" class="form-control" value="{{ $quiz->title }}">
                     </div>
                     <div class="form-group mt-2">
-                        <label>Quiz Açıklama</label> 
+                        <label>Quiz Açıklama</label>
                         <textarea name="description" class="form-control" rows="4" >{{ $quiz->description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Quiz Durum</label>
+                        <select name="status" class="form-control">
+                            <option @if ($quiz->questions_count<4)
+                                disabled
+                                @endif @if($quiz->status==='publish') selected @endif value="publish">Aktif</option>
+                            <option @if($quiz->status==='draft') selected @endif value="draft">Taslak</option>
+                            <option @if($quiz->status==='passive') selected @endif value="passive">Pasif</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" @if ($quiz->finished_at) checked @endif id="isFin">
@@ -26,7 +36,7 @@
                     </div>
                 </form>
             </div>
-    
+
         </div>
         <x-slot name="js">
             <script>
@@ -40,4 +50,3 @@
             </script>
         </x-slot>
     </x-app-layout>
-    

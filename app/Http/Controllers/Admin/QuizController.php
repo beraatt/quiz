@@ -18,7 +18,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::paginate(5);
+        $quizzes = Quiz::withCount('questions')->paginate(5);
         return view('admin.quiz.list',compact('quizzes'));
     }
 
@@ -64,7 +64,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz=Quiz::find($id) ?? abort(404,'Sayfa Bulunamadı');
+        $quiz=Quiz::withCount('questions')->find($id) ?? abort(404,'Sayfa Bulunamadı');
         return view('admin.quiz.edit',compact('quiz'));
     }
 
