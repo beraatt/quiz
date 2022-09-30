@@ -4,7 +4,9 @@ use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\QuizController;
 use Psy\Readline\Hoa\Console;
-use App\Http\Controllers\AdminQuestionController;
+use App\Http\Controllers\Admin\QuestionController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,5 +35,5 @@ Route::middleware([
 Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],
 function(){
     Route::resource('quizzes',QuizController::class);
-    
+    Route::resource('quiz/{quiz_id}/questions',QuestionController::class);
 });

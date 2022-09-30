@@ -6,7 +6,7 @@
                         class="fa fa-plus"></i> Quiz Oluştur</a>
 
         </div>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Quiz</th>
@@ -22,11 +22,15 @@
                         <td>{{ $quiz->status }}</td>
                         <td>{{ $quiz->finished_at }}</td>
                         <td>
-                            <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i
-                                    class="fa fa-pen"></i></a>
                             <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
                                 @csrf <button type="submit" class="btn btn-sm btn-danger"><i
                                         class="fa fa-times"></i></button>
+
+                                <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i
+                                        class="fa fa-pen"></i></a>
+
+                                <a href=" {{ route('questions.index', $quiz->id) }}"class="btn btn-sm btn-warning"><i
+                                        class="fa fa-question"></i></a>
                             </form>
                         </td>
                     </tr>

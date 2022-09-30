@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
+use App\Models\Question;
+use App\Http\Requests\QuestionCreateRequest;
 
 class QuestionController extends Controller
 {
@@ -11,9 +14,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $quiz= Quiz::whereId($id)->with('questions')->first() ?? abort(404,'quiz bulunamadı');
+        return view('admin.question.list',compact('quiz'));
     }
 
     /**
@@ -21,9 +25,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $quiz = Quiz::find($id);
+        return view('admin.question.create',compact('quiz'));
     }
 
     /**
@@ -32,9 +37,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionCreateRequest $request)
     {
-        //
+    /*     Question::create($request->post());
+        return redirect()->route('questions.index')->withSuccess("Soru başarıyla oluşturuldu"); */
+        return $request->post();
     }
 
     /**
