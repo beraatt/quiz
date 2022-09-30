@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Http\Requests\QuestionCreateRequest;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -37,11 +38,17 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(QuestionCreateRequest $request)
+    public function store(QuestionCreateRequest $request,$id)
     {
-    /*     Question::create($request->post());
-        return redirect()->route('questions.index')->withSuccess("Soru başarıyla oluşturuldu"); */
-        return $request->post();
+        if($request->hasFile(('image'))){
+            $fileName = Str::slug($request->question).'.'.$request->image->getClientOriginalextension();
+            $fileNameWithUpload = 'upload/'.$fileName;
+            $request->image->move(public_path('uploads'),$fileName);
+            $request->merge([
+                'image'=>$fileNameWithUpload
+            ]);
+        }
+        return Quiz::find($id)->questions()->create($request->post());
     }
 
     /**
