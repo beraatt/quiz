@@ -21,7 +21,7 @@
                 @foreach ($quiz->questions as $question)
                 <tr>
                     <td>{{ $question->question }} </td>
-                    <td>{{ $question->images }}</td>
+                    <td>{{ $question->image }}</td>
                     <td>{{ $question->answer1 }}</td>
                     <td>{{ $question->answer2 }}</td>
                     <td>{{ $question->answer3 }}</td>
@@ -32,7 +32,7 @@
                             @csrf <button type="submit" class="btn btn-sm btn-danger"><i
                                     class="fa fa-times"></i></button>
 
-                            <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i
+                            <a href=" {{ route('questions.edit', [$quiz->id,$question->id]) }}"class="btn btn-sm btn-primary"><i
                                     class="fa fa-pen"></i></a>
                         </form>
                     </td>
