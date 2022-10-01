@@ -2,9 +2,25 @@
     <x-slot name="header">Quizler</x-slot>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title"> <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i
-                        class="fa fa-plus"></i> Quiz Oluştur</a>
-
+            <h5 class="card-title float-right">
+                <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Quiz
+                    Oluştur</a>
+            </h5>
+            <form method="GET" action="">
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <input type="text" name="title" placeholder="Quiz Adı" class="form-control">
+                    </div>
+                    <div class="col-md-2">
+                        <select name="status" onchange="this.form.submit()" class="form-control">
+                            <option>Durum Seçiniz</option>
+                            <option value="publish"> Aktif</option>
+                            <option value="passive"> Pasif</option>
+                            <option value="draft"> Taslak</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -25,17 +41,17 @@
                             @switch($quiz->status)
                                 @case('publish')
                                     <span
-                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Publish</span>
+                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Aktif</span>
                                 @break
 
                                 @case('passive')
                                     <span
-                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Passive</span>
+                                        class="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Pasif</span>
                                 @break
 
                                 @case('draft')
                                     <span
-                                        class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Draft</span>
+                                        class="bg-blue-200 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">Taslak</span>
                                 @break
                             @endswitch
                         </td>
