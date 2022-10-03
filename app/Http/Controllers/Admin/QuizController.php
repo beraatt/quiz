@@ -21,7 +21,7 @@ class QuizController extends Controller
         $quizzes = Quiz::withCount('questions');
 
         if (request()->get('title')) {
-            $quizzes = $quizzes->where('title','LIKE',"%".request()->get('title')."%");
+            $quizzes = $quizzes->where('title','LİKE',"%".request()->get('title')."%");
         }
 
         if(request()->get('status')){

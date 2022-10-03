@@ -6,19 +6,27 @@
                 <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Quiz
                     Oluştur</a>
             </h5>
+
             <form method="GET" action="">
                 <div class="form-row">
                     <div class="col-md-2">
-                        <input type="text" name="title" placeholder="Quiz Adı" class="form-control">
+                        <input type="text" value="{{ request()->get('title') }}" name="title"
+                            placeholder="Quiz Adı" class="form-control">
                     </div>
                     <div class="col-md-2">
-                        <select name="status" onchange="this.form.submit()" class="form-control">
+                        <select class="form-control" onchange="this.form.submit()" name="status">
                             <option>Durum Seçiniz</option>
-                            <option value="publish"> Aktif</option>
-                            <option value="passive"> Pasif</option>
-                            <option value="draft"> Taslak</option>
+                            <option @if (request()->get('status') == 'publish') selected @endif value="publish">Aktif</option>
+                            <option @if (request()->get('status') == 'passive') selected @endif value="passive">Pasif</option>
+                            <option @if (request()->get('status') == 'draft') selected @endif value="draft">Taslak</option>
                         </select>
                     </div>
+                    @if (request()->get('title') || request()->get('status'))
+                        <div class="col-md-2">
+                            <a href="{{ route('quizzes.index') }}" class="btn btn-secondary btn-sm"> Filtreyi
+                                Sıfırla</a>
+                        </div>
+                    @endif
                 </div>
             </form>
         </div>
@@ -78,7 +86,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $quizzes->links() }}
+        {{ $quizzes->withQueryString()->links() }}
     </div>
 
 </x-app-layout>
