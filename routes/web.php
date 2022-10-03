@@ -22,8 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware'=>'auth'],function(){
-    Route::get('panel',[MainController::class,'dashboard'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/panel',[MainController::class,'dashboard'])->name('dashboard');
 });
 
 Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],
