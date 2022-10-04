@@ -96,10 +96,10 @@
                             <!-- Admin Management -->
                             @if(auth()->user()->type=='admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Admin Account') }}
+                                {{ __('Admin Yönetimi') }}
                             </div>
                             <x-jet-dropdown-link href="{{ route('quizzes.index') }}">
-                                {{ __('Quizzes') }}
+                                {{ __('Quizler') }}
                             </x-jet-dropdown-link>
                             @endif
 
@@ -107,7 +107,7 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-                            
+
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>

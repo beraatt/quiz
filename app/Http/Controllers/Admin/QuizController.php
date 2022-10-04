@@ -21,14 +21,14 @@ class QuizController extends Controller
         $quizzes = Quiz::withCount('questions');
 
         if (request()->get('title')) {
-            $quizzes = $quizzes->where('title','LİKE',"%".request()->get('title')."%");
+            $quizzes = $quizzes->where('title', 'LİKE', "%" . request()->get('title') . "%");
         }
 
-        if(request()->get('status')){
-            $quizzes = $quizzes->where('status',request()->get('status'));
+        if (request()->get('status')) {
+            $quizzes = $quizzes->where('status', request()->get('status'));
         }
-       $quizzes=$quizzes->paginate(5);
-        return view('admin.quiz.list',compact('quizzes'));
+        $quizzes = $quizzes->paginate(5);
+        return view('admin.quiz.list', compact('quizzes'));
     }
 
     /**
@@ -39,7 +39,7 @@ class QuizController extends Controller
     public function create()
     {
         $quizzes = Quiz::paginate(5);
-        return view('admin.quiz.create',compact('quizzes'));
+        return view('admin.quiz.create', compact('quizzes'));
     }
 
     /**
@@ -50,8 +50,8 @@ class QuizController extends Controller
      */
     public function store(QuizCreateRequest $request)
     {
-       Quiz::create($request->post());
-       return redirect()->route('quizzes.index')->withSuccess("Quiz Başarıyla Oluşturuldu");
+        Quiz::create($request->post());
+        return redirect()->route('quizzes.index')->withSuccess("Quiz Başarıyla Oluşturuldu");
     }
 
     /**
@@ -62,7 +62,6 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -73,8 +72,8 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz=Quiz::withCount('questions')->find($id) ?? abort(404,'Sayfa Bulunamadı');
-        return view('admin.quiz.edit',compact('quiz'));
+        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404, 'Sayfa Bulunamadı');
+        return view('admin.quiz.edit', compact('quiz'));
     }
 
     /**
@@ -86,9 +85,13 @@ class QuizController extends Controller
      */
     public function update(QuizUpdateRequest $request, $id)
     {
-        $quiz=Quiz::find($id) ?? abort(404,'Sayfa Bulunamadı');
-        Quiz::where('id',$id)->update($request->except(['_method','_token']));
-        return redirect()->route('quizzes.index')->withSuccess('Quiz güncelleme işlemi başarıyla gerçekleşti');
+        $quiz = Quiz::find($id) ?? abort(404, 'Sayfa Bulunamadı');
+        Quiz::find($id)
+            ->update($request
+                ->except(['_method', '_token']));
+        return redirect()
+            ->route('quizzes.index')
+            ->withSuccess('Quiz güncelleme işlemi başarıyla gerçekleşti');
     }
 
     /**
@@ -99,7 +102,7 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404,'Quiz Bulunamadı');
+        $quiz = Quiz::find($id) ?? abort(404, 'Quiz Bulunamadı');
         $quiz->delete();
         return redirect()->route('quizzes.index')->withSuccess('Quiz silme işlemi başarıyla gerçekleşti');
     }
