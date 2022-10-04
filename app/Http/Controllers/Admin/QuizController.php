@@ -72,7 +72,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404, 'Sayfa Bulunamadı');
+        $quiz = Quiz::find($id)->withCount('questions')->find($id) ?? abort(404, 'Sayfa Bulunamadı');
         return view('admin.quiz.edit', compact('quiz'));
     }
 
@@ -86,7 +86,7 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, 'Sayfa Bulunamadı');
-        Quiz::find($id)
+        Quiz::where('id',$id)
             ->update($request
                 ->except(['_method', '_token']));
         return redirect()
