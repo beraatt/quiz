@@ -12,7 +12,7 @@ class Quiz extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable=['title','description','finished_at','slug']; //Controller'da kullanabilmek için, verileri tabloya aktarabilmek için kullanıldı
+    protected $fillable=['title','description','status','finished_at','slug']; //Controller'da kullanabilmek için, verileri tabloya aktarabilmek için kullanıldı
     protected $dates=['finished_at'];
 
     public function getFinishedAtAttribute($date){

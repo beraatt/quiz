@@ -3,12 +3,14 @@
     <div class="card">
         <div class="card-body">
             <p class="card-text">
+                <form method="POST" action="{{route('quiz.result',$quiz->slug)}}">
+                    @csrf
                 @foreach ($quiz->questions as $question)
-                    <strong> # {{ $loop->iteration }} </strong> {{ $question->question }}
+                    <strong> #{{ $loop->iteration }} </strong> {{ $question->question }}
                     @if ($question->image)
-                    <img src="{{ asset($question->image) }}" class="img-responsive">
+                    <img src="{{ asset($question->image) }}" style="" class="img-responsive">
                     @endif
-                    <div class="form-check">
+                    <div class="form-check mt-2">
                         <input class="form-check-input" type="radio" name="{{ $question->id }}" id="{{ $question->id }}1"
                             value="answer1">
                         <label class="form-check-label" for="{{ $question->id }}1">
@@ -40,6 +42,8 @@
                         <hr>
                     @endif
                 @endforeach
+                <button class="btn btn-success btn-sm btn-block mt-4" type="submit">Sınavı Bitir</button>
+            </form>
             </p>
         </div>
     </div>
