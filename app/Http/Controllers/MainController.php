@@ -16,17 +16,23 @@ class MainController extends Controller
     public function dashboard()
     { /* Yalnızca statüsü aktif olan quizleri listeliyoruz. */
         $quizzes = Quiz::where('status', 'publish')->withCount('questions')->paginate(5);
-        return view('dashboard', compact('quizzes'));
+
+        $results = auth()->user()->results;
+        return view('dashboard', compact('quizzes', 'results'));
     }
     /* sluga göre quiz detaylarını görüntüleme */
     public function quiz_detail($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->with('my_result', 'result')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::whereSlug($slug)->with('my_result', 'result', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
         return view('quiz_detail', compact('quiz'));
     }
     public function quiz($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->with('questions')->first();
+        $quiz = Quiz::whereSlug($slug)->with('questions.my_answer', 'my_result')->first() ?? abort(404, 'Quiz Bulunamadı');
+
+        if ($quiz->my_result) {
+            return view('quiz_result', compact('quiz'));
+        }
         return view('quiz', compact('quiz'));
     }
     /* kullanıcının sınavı sonucunda sonuçlarını hesapladığımız bölüm */
@@ -36,8 +42,8 @@ class MainController extends Controller
         $correct = 0;
         $question_count = 0;
 
-        if($quiz->my_result){
-            abort(404,"Bu Quiz'e daha önce girdiniz");
+        if ($quiz->my_result) {
+            abort(404, "Bu Quiz'e daha önce girdiniz");
         }
 
         foreach ($quiz->questions as $question) {
