@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">Quizler</x-slot>
-    <div class="card">
+    <div class="card " >
         <div class="card-body">
             <h5 class="card-title float-right">
                 <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Quiz
@@ -8,12 +8,13 @@
             </h5>
 
             <form method="GET" action="">
-                <div class="form-row">
-                    <div class="col-md-2">
+
+                <div class="row">
+                    <div class="col-md-3">
                         <input type="text" value="{{ request()->get('title') }}" name="title"
-                            placeholder="Quiz Adı" class="form-control">
+                            placeholder="Quiz Adı" class="form-control" id="search">
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select class="form-control" onchange="this.form.submit()" name="status">
                             <option>Durum Seçiniz</option>
                             <option @if (request()->get('status') == 'publish') selected @endif value="publish">Aktif</option>
@@ -22,7 +23,7 @@
                         </select>
                     </div>
                     @if (request()->get('title') || request()->get('status'))
-                        <div class="col-md-2">
+                        <div class="col-md-3 mt-1">
                             <a href="{{ route('quizzes.index') }}" class="btn btn-secondary btn-sm"> Filtreyi
                                 Sıfırla</a>
                         </div>
@@ -30,7 +31,7 @@
                 </div>
             </form>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered  ">
             <thead>
                 <tr>
                     <th scope="col">Quiz</th>
@@ -40,7 +41,7 @@
                     <th scope="col">İşlemler</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="content">
                 @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{ $quiz->title }} </td>
@@ -79,7 +80,7 @@
                             </span>
                         </td>
 
-                        <td>
+                        <td class="">
 
                             <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
                                 @csrf
@@ -99,7 +100,30 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="card-footer">
         {{ $quizzes->withQueryString()->links() }}
     </div>
+    </div>
+{{--     <x-slot name="js">
+        <script type="text/javascript">
+           $('#search').on('keyup',function(){
+
+            $value=$(this).val();
+            $.ajax({
+
+                type:'get',
+                url:'{{URL::to('search')}}',
+                data:{'search':$value},
+                success:function(data){
+                    consolo.log(data);
+                    $('#content')
+                }
+
+
+            });
+
+           })
+        </script>
+    </x-slot> --}}
 
 </x-app-layout>

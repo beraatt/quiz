@@ -22,10 +22,8 @@ class QuizController extends Controller
         $quizzes = Quiz::withCount('questions');
 
         if (request()->get('title')) {
-            $quizzes = $quizzes->where('title', 'LİKE', "%" . request()->get('title') . "%");
-        }
-
-        if (request()->get('status')) {
+            $quizzes = $quizzes->where('title', 'like', "%" . request()->get('title') . "%");
+        } elseif (request()->get('status')) {
             $quizzes = $quizzes->where('status', request()->get('status'));
         }
         $quizzes = $quizzes->paginate(5);
@@ -64,9 +62,8 @@ class QuizController extends Controller
     public function show($id)
     {
 
-        $quiz = Quiz::find($id)->with( 'result.user', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::find($id)->with('result.user', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
         return view('admin.quiz.show', compact('quiz'));
-
     }
 
     /**
@@ -91,7 +88,7 @@ class QuizController extends Controller
     public function update(QuizUpdateRequest $request, $id)
     {
         $quiz = Quiz::find($id) ?? abort(404, 'Sayfa Bulunamadı');
-        Quiz::where('id',$id)
+        Quiz::where('id', $id)
             ->update($request
                 ->except(['_method', '_token']));
         return redirect()
