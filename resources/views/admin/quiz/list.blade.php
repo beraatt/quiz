@@ -48,8 +48,17 @@
                         <td class="text-center">
                             @switch($quiz->status)
                                 @case('publish')
-                                    <span
-                                        class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Aktif</span>
+                                    @if (!$quiz->finished_at)
+                                        <span
+                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Aktif</span>
+                                    @elseif ($quiz->finished_at > now())
+                                        <span
+                                            class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Aktif</span>
+                                    @else
+                                        <span
+                                            class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-200 dark:text-gray-900">Tarihi
+                                            Dolmuş</span>
+                                    @endif
                                 @break
 
                                 @case('passive')
@@ -71,8 +80,12 @@
                         </td>
 
                         <td>
+
                             <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
-                                @csrf <button type="submit" class="btn btn-sm btn-danger"><i
+                                @csrf
+                                <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-secondary btn-sm"> <i
+                                        class="fa fa-info"></i> </a>
+                                <button type="submit" class="btn btn-sm btn-danger"><i
                                         class="fa fa-times"></i></button>
 
                                 <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i

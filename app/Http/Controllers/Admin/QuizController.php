@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Http\Requests\QuizCreateRequest;
 use App\Http\Requests\QuizUpdateRequest;
+use Illuminate\Support\Carbon;
 
 
 class QuizController extends Controller
@@ -62,6 +63,10 @@ class QuizController extends Controller
      */
     public function show($id)
     {
+
+        $quiz = Quiz::find($id)->with( 'result.user', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        return view('admin.quiz.show', compact('quiz'));
+
     }
 
     /**

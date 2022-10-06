@@ -15,7 +15,9 @@ class MainController extends Controller
 
     public function dashboard()
     { /* Yalnızca statüsü aktif olan quizleri listeliyoruz. */
-        $quizzes = Quiz::where('status', 'publish')->withCount('questions')->paginate(5);
+        $quizzes = Quiz::where('status', 'publish')->where(function($query){
+            $query->whereNull('finished_at')->orWhere('finished_at','>',now());
+        })->withCount('questions')->paginate(5);
 
         $results = auth()->user()->results;
         return view('dashboard', compact('quizzes', 'results'));

@@ -37,6 +37,7 @@ Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],
 function(){
     Route::resource('quizzes',QuizController::class);
     Route::resource('quiz/{quiz_id}/questions',QuestionController::class);
+    Route::get('quiz/{quiz_id}/details',[QuizController::class,'show'])->whereNumber('id')->name('quizzes.details');
 
 });
 

@@ -2,20 +2,19 @@
     <x-slot name="header">{{ $quiz->title }} Sonucu </x-slot>
     <div class="card">
         <div class="card-body">
-<span>Puan: {{$quiz->my_result->point}}</span>
+            <span>Puan: {{ $quiz->my_result->point }}</span>
             <div role="alert">
                 <div class="border border-t-0  border-blue-600 rounded-b bg-blue-100 px-4 py-3 ">
                     <i class="fa fa-circle"></i> İşaretlediğiniz Şık <br>
                     <i class="fa fa-check-circle text-green-600"></i> Doğru Cevap<br>
                     <i class="fa fa-times-circle text-red-600"></i> Yanlış Cevap<br>
-
                 </div>
-              </div>
-
+            </div>
             <p class="card-text">
                 @csrf
                 @foreach ($quiz->questions as $question)
-                <small>Bu soruya <strong>%{{$question->true_percent}}</strong> oranında doğru cevap verildi </small> <br>
+                    <small>Bu soruya <strong>%{{ $question->true_percent }}</strong> oranında doğru cevap verildi
+                    </small> <br>
                     @if ($question->correct_answer == $question->my_answer->answer)
                         <i class="fa fa-check-circle text-green-600"></i>
                     @else
