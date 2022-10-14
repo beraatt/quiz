@@ -22,7 +22,7 @@
                         value="{{ old('finished_at') }}">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success btn-sm btn-block mt-2 ">Quiz Oluştur</button>
+                    <button type="submit" class="btn btn-secondary btn-sm btn-block mt-2 ">Quiz Oluştur</button>
                 </div>
             </form>
         </div>
