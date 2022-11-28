@@ -30,7 +30,7 @@ class Quiz extends Model
     {
         if ($this->result()->count() > 0) {
             return [
-                'average' => round($this->result()->avg('point')),
+                'average' => ceil($this->result()->avg('point')),
                 'join_count' => $this->result()->count()
             ];
         } else {
