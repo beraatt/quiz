@@ -6,7 +6,7 @@
         "start": "node your-script.js"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^6.2.0",
+        "@fortawesome/fontawesome-free": "^6.2.1",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/typography": "^0.5.0",
         "alpinejs": "^3.0.6",
