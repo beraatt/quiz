@@ -14,33 +14,44 @@ class MainController extends Controller
 {
 
     public function dashboard()
-    { /* Yalnızca statüsü aktif olan quizleri listeliyoruz. */
-        $quizzes = Quiz::where('status', 'publish')->where(function($query){
-            $query->whereNull('finished_at')->orWhere('finished_at','>',now());
+    {
+        $quizzes = Quiz::where('status', 'publish')
+        ->where(function($query){
+            $query->whereNull('finished_at')
+                ->orWhere('finished_at', '>', now());
         })->withCount('questions')->paginate(5);
 
         $results = auth()->user()->results;
+
         return view('dashboard', compact('quizzes', 'results'));
     }
-    /* sluga göre quiz detaylarını görüntüleme */
+
     public function quiz_detail($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->with('my_result', 'result', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::whereSlug($slug)
+            ->with('my_result', 'result', 'topTen.user')
+            ->withCount('questions')
+            ->first() ?? abort(404, 'Quiz Bulunamadı');
+
         return view('quiz_detail', compact('quiz'));
     }
     public function quiz($slug)
     {
-        $quiz = Quiz::whereSlug($slug)->with('questions.my_answer', 'my_result')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::whereSlug($slug)
+            ->with('questions.my_answer', 'my_result')
+            ->first() ?? abort(404, 'Quiz Bulunamadı');
 
         if ($quiz->my_result) {
             return view('quiz_result', compact('quiz'));
         }
         return view('quiz', compact('quiz'));
     }
-    /* kullanıcının sınavı sonucunda sonuçlarını hesapladığımız bölüm */
+
     public function result(Request $request, $slug)
     {
-        $quiz = Quiz::withCount('questions')->whereSlug($slug)->first() ?? abort(404, 'Qiuz Bulunamadı');
+        $quiz = Quiz::withCount('questions')
+            ->whereSlug($slug)
+            ->first() ?? abort(404, 'Qiuz Bulunamadı');
         $correct = 0;
         $question_count = 0;
 
@@ -55,15 +66,14 @@ class MainController extends Controller
                 'answer' => $request->post($question->id)
             ]);
             $question_count += 1;
+
             if ($question->correct_answer === $request->post($question->id)) {
                 $correct = $correct + 1;
             }
         }
-        /* puan hesaplayan işlem */
-        $point = floor((100 / count($quiz->questions)) * $correct);
-        /* yanlış soru sayısını bulan işlem */
-        $wrong = $question_count - $correct;
 
+        $point = floor((100 / count($quiz->questions)) * $correct);
+        $wrong = $question_count - $correct;
 
         Result::create([
             'user_id' => auth()->user()->id,
@@ -72,7 +82,6 @@ class MainController extends Controller
             'correct' => $correct,
             'wrong' => $wrong,
         ]);
-
 
         return redirect()->route('quiz_detail', $quiz->slug)->withSuccess("Başarıyla Quiz'i bitirdin. Puanın: " . $point);
     }
