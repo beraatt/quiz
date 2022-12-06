@@ -30,7 +30,7 @@
                         <a href="{{ route('login') }}" class="text-l text-white dark:text-white underline">Giriş Yap</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-l text-white dark:text-white underline">Kayıt Ol</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-white dark:text-white underline">Kayıt Ol</a>
                         @endif
                     @endauth
                 </div>

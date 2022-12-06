@@ -10,9 +10,9 @@
 
 
         </div>
-        <table class="table table-bordered text-center">
+        <table class="table table-bordered text-center w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
             <thead>
-                <tr>
+                <tr class=" flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                     <th scope="col">Soru</th>
                     <th scope="col">Fotoğraf</th>
                     <th scope="col">1. Cevap</th>
@@ -23,13 +23,12 @@
                     <th scope="col">Islemler</th>
                 </tr>
                 @foreach ($quiz->questions as $question)
-                <tr>
+                <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0   ">
                     <td>{{ $question->question }} </td>
                     <td>
                         @if ($question->image)
                             <a href="{{asset($question->image)}}" target="_blanck" class="btn btn-sm btn-light">Görüntüle</a>
                         @endif
-
                     </td>
                     <td>{{ $question->answer1 }}</td>
                     <td>{{ $question->answer2 }}</td>
