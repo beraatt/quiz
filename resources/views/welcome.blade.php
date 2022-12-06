@@ -25,7 +25,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-2 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-l text-white dark:text-white underline">PANELE GİT</a>
+                        <a href="{{ route('dashboard') }}" class="text-l text-white dark:text-white underline">ANASAYFAYA GİT</a>
                     @else
                         <a href="{{ route('login') }}" class="text-l text-white dark:text-white underline">Giriş Yap</a>
 
