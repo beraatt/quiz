@@ -66,7 +66,7 @@ class QuizController extends Controller
     public function show($id)
     {
 
-        $quiz = Quiz::find($id)
+        $quiz = Quiz::whereId($id)
             ->with('result.user', 'topTen.user')
             ->withCount('questions')
             ->first() ?? abort(404, 'Quiz Bulunamadı');

@@ -6,7 +6,6 @@
                 class="fa fa-arrow-left"></i> Quizlere Dön</a>
             <h5 class="card-title"></h5>
             <p class="card-text">
-
             <div class="row " >
                 <div class="col-md-4">
                     <ul class="list-group">
@@ -43,7 +42,6 @@
                             <div class="card-body">
                                 <h5 class="card-title">İlk 10</h5>
                                 <ul class="list-group">
-
                                     @foreach ($quiz->topTen as $result)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <strong class="h5">{{ $loop->iteration }}.</strong>
@@ -55,7 +53,6 @@
                                                 class="bg-indigo-100 text-indigo-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-800 float-right ">{{ $result->point }}</span>
                                         </li>
                                     @endforeach
-
                                 </ul>
                             </div>
                         </div>
@@ -72,7 +69,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach($quiz->result as $result)
                             <tr>
                                 <td>{{$result->user->name}}</td>

@@ -24,11 +24,11 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     @foreach ($results as $result )
-
-                  <li class="list-group-item">
-                    <strong>{{$result->point}}</strong> - <a href="{{route('quiz_detail',$result->quiz->slug)}}">
-                    {{$result->quiz->title}}</a> </li>
-                  @endforeach
+                        <li class="list-group-item">
+                            <strong>{{$result->point}}</strong> - <a href="{{route('quiz_detail',$result->quiz->slug)}}">
+                            {{$result->quiz->title}}</a>
+                         </li>
+                    @endforeach
                 </ul>
               </div>
         </div>
