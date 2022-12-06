@@ -23,14 +23,14 @@
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <div class="hidden fixed top-0 right-2 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-l text-white dark:text-white underline">PANELE GİT</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Giriş Yap</a>
+                        <a href="{{ route('login') }}" class="text-l text-white dark:text-white underline">Giriş Yap</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Kayıt Ol</a>
+                            <a href="{{ route('register') }}" class="ml-4 text-l text-white dark:text-white underline">Kayıt Ol</a>
                         @endif
                     @endauth
                 </div>
