@@ -19,7 +19,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::withCount('questions');
+        $quizzes = Quiz::withCount('questions')->orderBy('created_at', 'DESC');
 
         if (request()->get('title')) {
             $quizzes = $quizzes->where('title', 'like', "%" . request()->get('title') . "%");

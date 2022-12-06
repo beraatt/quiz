@@ -22,9 +22,10 @@
                     @endif
                     <strong> #{{ $loop->iteration }} </strong> {{ $question->question }}
                     @if ($question->image)
-                        <img src="{{ asset($question->image) }}" style="" class="img-responsive">
+                        <img src="{{ asset($question->image) }}" style="" class="img-responsive h-20 w-30">
                     @endif
                     <div class="form-check mt-2">
+                        <strong>1-)</strong>
                         @if ('answer1' == $question->correct_answer)
                             <i class="fa fa-check-circle text-green-500"></i>
                         @elseif ('answer1' == $question->my_answer->answer)
@@ -35,6 +36,7 @@
                         </label>
                     </div>
                     <div class="form-check">
+                        <strong>2-)</strong>
                         @if ('answer2' == $question->correct_answer)
                             <i class="fa fa-check-circle text-green-500"></i>
                         @elseif ('answer2' == $question->my_answer->answer)
@@ -45,6 +47,7 @@
                         </label>
                     </div>
                     <div class="form-check">
+                        <strong>3-)</strong>
                         @if ('answer3' == $question->correct_answer)
                             <i class="fa fa-check-circle text-green-500"></i>
                         @elseif ('answer3' == $question->my_answer->answer)
@@ -55,6 +58,7 @@
                         </label>
                     </div>
                     <div class="form-check">
+                        <strong>4-)</strong>
                         @if ('answer4' == $question->correct_answer)
                             <i class="fa fa-check-circle text-green-500"></i>
                         @elseif ('answer4' == $question->my_answer->answer)

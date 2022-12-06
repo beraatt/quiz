@@ -84,7 +84,7 @@
                                 @csrf
                                 <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-secondary btn-sm"> <i
                                         class="fa fa-info"></i> </a>
-                                <button onclick="return confirm('Soru silinecektir. Silelim mi?');"  type="submit" class="btn btn-sm btn-danger"><i
+                                <button onclick="return confirm('Quiz silinecektir. Silinsin mi?');"  type="submit" class="btn btn-sm btn-danger"><i
                                         class="fa fa-times"></i></button>
 
                                 <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i

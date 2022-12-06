@@ -15,11 +15,13 @@ class MainController extends Controller
 
     public function dashboard()
     {
-        $quizzes = Quiz::where('status', 'publish')
+        $quizzes = Quiz::orderBy('created_at', 'DESC')
+        ->where('status', 'publish')
         ->where(function($query){
-            $query->whereNull('finished_at')
-                ->orWhere('finished_at', '>', now());
-        })->withCount('questions')->paginate(5);
+            $query->whereNull('finished_at')->orWhere('finished_at', '>', now());
+        })->withCount('questions')
+        ->paginate(5);
+
 
         $results = auth()->user()->results;
 

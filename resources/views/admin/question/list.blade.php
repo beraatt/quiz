@@ -38,7 +38,7 @@
                     <td class="text-success" style="text-align: center">{{ Str::substr($question->correct_answer, -1, 1) }}. Cevap</td>
                     <td>
                         <form action="{{ route('questions.destroy', [$quiz->id,$question->id]) }}" method="POST"> @method('DELETE')
-                            @csrf <button type="submit" class="btn btn-sm btn-danger"><i
+                            @csrf <button onclick="return confirm('Soru silinecektir. Silinsin mi?');" type="submit" class="btn btn-sm btn-danger"><i
                                     class="fa fa-times"></i></button>
 
                             <a href=" {{ route('questions.edit', [$quiz->id,$question->id]) }}"class="btn btn-sm btn-primary"><i

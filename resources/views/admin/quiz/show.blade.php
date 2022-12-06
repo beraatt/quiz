@@ -59,7 +59,8 @@
                     @endif
                 </div>
                 <div class="col-md-8">
-                    {{ $quiz->description }} <table class="table table-bordered mt-3">
+                    {{ $quiz->description }}
+                    <table class="table table-bordered mt-3">
                         <thead>
                             <tr>
                                 <th scope="col">Ad Soyad</th>

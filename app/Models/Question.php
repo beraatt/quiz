@@ -21,13 +21,16 @@ class Question extends Model
     public function getTruePercentAttribute()
     {
         $answer_count = $this->answers()->count();
-        $true_answer = $this->answers()->where('answer',$this->correct_answer)->count();
-        return round((100/$answer_count)*$true_answer);
+        $true_answer = $this->answers()->where('answer', $this->correct_answer)->count();
+
+        return $true_answer == 0 ? 0 : round((100/$answer_count)*$true_answer);
     }
+
     public function answers()
     {
         return $this->hasMany('App\Models\Answer');
     }
+
     public function my_answer()
     {
         return $this->hasOne('App\Models\Answer')->where('user_id', auth()->user()->id);

@@ -47,7 +47,7 @@ class QuestionController extends Controller
     {
         if($request->hasFile(('image'))){
             $fileName = Str::slug($request->question).'.'.$request->image->extension();
-            $fileNameWithUpload = 'upload/'.$fileName;
+            $fileNameWithUpload = '/uploads/'.$fileName;
             $request->image->move(public_path('uploads'),$fileName);
             $request->merge([
                 'image'=>$fileNameWithUpload
