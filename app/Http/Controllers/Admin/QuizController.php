@@ -26,7 +26,9 @@ class QuizController extends Controller
         } elseif (request()->get('status')) {
             $quizzes = $quizzes->where('status', request()->get('status'));
         }
+
         $quizzes = $quizzes->paginate(5);
+
         return view('admin.quiz.list', compact('quizzes'));
     }
 
@@ -38,6 +40,7 @@ class QuizController extends Controller
     public function create()
     {
         $quizzes = Quiz::paginate(5);
+
         return view('admin.quiz.create', compact('quizzes'));
     }
 
@@ -50,6 +53,7 @@ class QuizController extends Controller
     public function store(QuizCreateRequest $request)
     {
         Quiz::create($request->post());
+
         return redirect()->route('quizzes.index')->withSuccess("Quiz Başarıyla Oluşturuldu");
     }
 
@@ -62,7 +66,11 @@ class QuizController extends Controller
     public function show($id)
     {
 
-        $quiz = Quiz::find($id)->with('result.user', 'topTen.user')->withCount('questions')->first() ?? abort(404, 'Quiz Bulunamadı');
+        $quiz = Quiz::find($id)
+            ->with('result.user', 'topTen.user')
+            ->withCount('questions')
+            ->first() ?? abort(404, 'Quiz Bulunamadı');
+
         return view('admin.quiz.show', compact('quiz'));
     }
 
@@ -74,7 +82,10 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::find($id)->withCount('questions')->find($id) ?? abort(404, 'Sayfa Bulunamadı');
+        $quiz = Quiz::find($id)
+            ->withCount('questions')
+            ->find($id) ?? abort(404, 'Sayfa Bulunamadı');
+
         return view('admin.quiz.edit', compact('quiz'));
     }
 
@@ -104,8 +115,8 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        $quiz = Quiz::find($id) ?? abort(404, 'Quiz Bulunamadı');
-        $quiz->delete();
+        $quiz = Quiz::find($id)->delete() ?? abort(404, 'Quiz Bulunamadı');
+
         return redirect()->route('quizzes.index')->withSuccess('Quiz silme işlemi başarıyla gerçekleşti');
     }
 }

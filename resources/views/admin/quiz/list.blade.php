@@ -33,7 +33,7 @@
         </div>
         <table class="table table-bordered  ">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">Quiz</th>
                     <th scope="col">Soru Sayısı</th>
                     <th scope="col">Durum</th>
@@ -79,14 +79,12 @@
                                 {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-' }}
                             </span>
                         </td>
-
-                        <td class="">
-
+                        <td class="text-center">
                             <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
                                 @csrf
                                 <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-secondary btn-sm"> <i
                                         class="fa fa-info"></i> </a>
-                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                <button onclick="return confirm('Soru silinecektir. Silelim mi?');"  type="submit" class="btn btn-sm btn-danger"><i
                                         class="fa fa-times"></i></button>
 
                                 <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i
