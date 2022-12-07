@@ -35,7 +35,6 @@
                 </div>
             </form>
         </div>
-
     </div>
     <x-slot name="js">
         <script>

@@ -1,5 +1,7 @@
 <x-app-layout>
     <x-slot name="header">{{ $quiz->title }}</x-slot>
+    <div id='seconds-counter'> </div>
+
     <div class="card">
         <div class="card-body">
             <p class="card-text">
@@ -47,4 +49,30 @@
             </p>
         </div>
     </div>
+        <x-slot name="js">
+        <script type="">
+             var seconds = 5;
+             var el = document.getElementById('seconds-counter');
+                function incrementSeconds() {
+                    seconds -= 1;
+                    el.innerText = "Quizin bitmesine " + seconds + " saniye kalmıştır.";
+                    if(seconds == 0){
+                Swal.fire(
+                    "Süreniz bitmiştir",
+                    "Quiz için verilen süreniz bitmiştir. Anasayfaya yönlendiriliyorsunuz",
+                    "error"
+                )
+                clearInterval(cancel);
+                setTimeout(function() {
+                    window.location.replace("http://quiz.test/panel")
+                }, 2000);
+                }
+            }
+            var cancel = setInterval(incrementSeconds, 1000);
+
+        </script>
+        <script>
+
+        </script>
+    </x-slot>
 </x-app-layout>

@@ -16,11 +16,16 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
     <!-- Styles -->
     @livewireStyles
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
         integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+
 </head>
 
 <body class="font-sans antialiased">
@@ -65,6 +70,7 @@
         {{ $js }}
     @endisset
     @livewireScripts
+
 </body>
 
 </html>
