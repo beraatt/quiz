@@ -3,12 +3,9 @@
     <div class="card " >
         <div class="card-body">
             <h5 class="card-title float-right">
-                <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Quiz
-                    Oluştur</a>
+                <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Quiz Oluştur</a>
             </h5>
-
             <form method="GET" action="">
-
                 <div class="row">
                     <div class="col-md-3">
                         <input type="text" value="{{ request()->get('title') }}" name="title"
@@ -24,8 +21,7 @@
                     </div>
                     @if (request()->get('title') || request()->get('status'))
                         <div class="col-md-3 mt-1">
-                            <a href="{{ route('quizzes.index') }}" class="btn btn-secondary btn-sm"> Filtreyi
-                                Sıfırla</a>
+                            <a href="{{ route('quizzes.index') }}" class="btn btn-secondary btn-sm"> Filtreyi Sıfırla</a>
                         </div>
                     @endif
                 </div>
@@ -45,7 +41,7 @@
                 @foreach ($quizzes as $quiz)
                     <tr>
                         <td>{{ $quiz->title }} </td>
-                        <td> {{ $quiz->questions_count }} </td>
+                        <td class="text-center"> {{ $quiz->questions_count }} </td>
                         <td class="text-center">
                             @switch($quiz->status)
                                 @case('publish')
@@ -74,24 +70,22 @@
                             @endswitch
                         </td>
 
-                        <td>
+                        <td class="text-center">
                             <span title="{{ $quiz->finished_at }}">
                                 {{ $quiz->finished_at ? $quiz->finished_at->diffForHumans() : '-' }}
                             </span>
                         </td>
                         <td class="text-center">
-                            <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE')
-                                @csrf
-                                <a href="{{ route('quizzes.details', $quiz->id) }}" class="btn btn-secondary btn-sm"> <i
-                                        class="fa fa-info"></i> </a>
-                                <button onclick="return confirm('Quiz silinecektir. Silinsin mi?');"  type="submit" class="btn btn-sm btn-danger"><i
-                                        class="fa fa-times"></i></button>
-
-                                <a href=" {{ route('quizzes.edit', $quiz->id) }}"class="btn btn-sm btn-primary"><i
-                                        class="fa fa-pen"></i></a>
-
-                                <a href=" {{ route('questions.index', $quiz->id) }}"class="btn btn-sm btn-warning"><i
-                                        class="fa fa-question"></i></a>
+                            <form action="{{ route('quizzes.destroy', $quiz->id) }}" method="POST"> @method('DELETE') @csrf
+                                <a class="btn btn-secondary dropdown-toggle"  href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" >
+                                    <i class="fa-solid fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="{{ route('quizzes.details', $quiz->id) }}">Quiz Detayları</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('quizzes.edit', $quiz->id) }}">Quiz Düzenle</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('questions.index', $quiz->id) }}">Sorular</a></li>
+                                    <li><a onclick="return confirm('Quiz silinecektir. Silinsin mi?');" class="dropdown-item" type="submit" >Sil</a></li>
+                                  </ul>
                             </form>
                         </td>
                     </tr>
@@ -102,26 +96,4 @@
         {{ $quizzes->withQueryString()->links() }}
     </div>
     </div>
-{{--     <x-slot name="js">
-        <script type="text/javascript">
-           $('#search').on('keyup',function(){
-
-            $value=$(this).val();
-            $.ajax({
-
-                type:'get',
-                url:'{{URL::to('search')}}',
-                data:{'search':$value},
-                success:function(data){
-                    consolo.log(data);
-                    $('#content')
-                }
-
-
-            });
-
-           })
-        </script>
-    </x-slot> --}}
-
 </x-app-layout>
