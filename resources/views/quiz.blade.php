@@ -51,7 +51,7 @@
     </div>
         <x-slot name="js">
         <script type="">
-             var seconds = 5;
+             var seconds = 200;
              var el = document.getElementById('seconds-counter');
                 function incrementSeconds() {
                     seconds -= 1;
